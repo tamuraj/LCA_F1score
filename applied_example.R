@@ -7,9 +7,9 @@ library(HDInterval)
 library(BayesLCA)
 # Start measuring time
 start_time <- Sys.time()
-#-----------------------------------------------------------------------------------------------------
-#   Assessing the diagnostic performance of Alzheimer's disease by Hallucination by giving an estimate of the F1 score					  
-#-----------------------------------------------------------------------------------------------------
+#----------------------------------------------------------------------------------------------------------------------#
+#   Assessing the diagnostic performance of Alzheimer's disease by Hallucination by giving an estimate of the F1 score #				  
+#----------------------------------------------------------------------------------------------------------------------#
 
 
 
