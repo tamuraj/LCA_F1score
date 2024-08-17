@@ -5,7 +5,8 @@
 
 library(HDInterval)
 library(BayesLCA)
-
+# Start measuring time
+start_time <- Sys.time()
 #-----------------------------------------------------------------------------------------------------
 #   Assessing the diagnostic performance of Alzheimer's disease by Hallucination by giving an estimate of the F1 score					  
 #-----------------------------------------------------------------------------------------------------
@@ -122,3 +123,11 @@ f1<-2*ppv*se/(ppv+se)
 
 plot(density(f1), xlim=c(0,1), col = "red", lwd = 2,xlab="",main="",ylab="")
 abline(v=hdiMC,col="blue")  ##95% Highest density interval
+
+
+# End measuring time
+end_time <- Sys.time()
+
+# Calculate and print the elapsed time
+execution_time <- end_time - start_time
+print(paste("Execution time:", execution_time))
