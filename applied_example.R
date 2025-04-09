@@ -91,28 +91,24 @@ lcmdat<-data.frame(lcm2)
 
 
 
-ppv<-NULL
-se<-NULL
-ac<-NULL
-sp<-NULL
-npv<-NULL
-for(i in 1:2000){
-  g<-table(test,lcmdat[,i])
-  a<-g[2]
-  b<-g[1]
-  c<-g[3]
-  e<-g[4]
-  preppv<-rbeta(1, e+1/2, a+1/2)
-  prese<-rbeta(1,e+1/2,c+1/2)
-  presp<-rbeta(1,b+1/2,a+1/2)
-  prenpv<-rbeta(1,b+1/2,c+1/2)
-  acr<-(b+e)/(a+b+c+e)
+ppv <- se <- sp <- npv <- ac <- numeric(2000)
+
+for (i in 1:2000) {
+  dst <- lcm1[, i]
+  pred <- rbinom(240, 1, dst)
   
-  ppv<-cbind(ppv,preppv)
-  se<-cbind(se,prese)
-  sp<-cbind(sp,presp)
-  ac<-cbind(ac,acr)
-  npv<-cbind(npv,prenpv)
+  g <- table(factor(test, levels = 0:1), factor(pred, levels = 0:1))
+  TP <- g["1", "1"]
+  FP <- g["0", "1"]
+  FN <- g["1", "0"]
+  TN <- g["0", "0"]
+  
+  # Jeffreys priorによるベータ分布のサンプリング
+  ppv[i] <- rbeta(1, TP + 0.5, FP + 0.5)
+  se[i]  <- rbeta(1, TP + 0.5, FN + 0.5)
+  sp[i]  <- rbeta(1, TN + 0.5, FP + 0.5)
+  npv[i] <- rbeta(1, TN + 0.5, FN + 0.5)
+  ac[i]  <- (TP + TN) / (TP + TN + FP + FN)
 }
 
 f1<-2*ppv*se/(ppv+se)
