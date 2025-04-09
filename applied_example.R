@@ -99,8 +99,8 @@ for (i in 1:2000) {
   
   g <- table(factor(test, levels = 0:1), factor(pred, levels = 0:1))
   TP <- g["1", "1"]
-  FP <- g["0", "1"]
-  FN <- g["1", "0"]
+  FN <- g["0", "1"]
+  FP <- g["1", "0"]
   TN <- g["0", "0"]
   
   # Jeffreys priorによるベータ分布のサンプリング
